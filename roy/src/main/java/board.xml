@@ -5,6 +5,28 @@
 	<select id="select" parameterType="string" resultType="board">
 		select * from board where id=#{m_id} or b_name = #{b_name}
 	</select>
+	<!-- 게시물 받아오기 -->
+	<select id="selectBoardList" resultType="board" >
+		select b_num, b_name, b_cnt, b_date from board 
+	</select>
+	
+
+	<!-- 구매할 게시물 선택 -->
+	<select id="selectOrderList" resultType="board" >
+		select 
+			b_num
+			,b_name
+			,b_cnt
+			,b_date 
+		from 
+			board 
+		where 
+			b_num in ${string}  
+			
+	</select>
+	
+
+	
 	<insert id="insert" parameterType="board">
 		insert into board values (#{b_num},#{b_name},#{b_cnt},sysdate,
 			#{b_view},#{b_shr},#{b_cmm},#{m_id})

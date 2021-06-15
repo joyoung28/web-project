@@ -8,9 +8,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link href="../../css/bootstrap.min.css" rel="stylesheet">
-<script type="text/javascript" src="../../js/jquery.js"></script>
-<script src="../../js/bootstrap.min.js"></script>
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script src="../js/bootstrap.min.js"></script>
 </head>
 <body>
 <form action="productlistview.do">
@@ -18,11 +18,10 @@
 </form>
 	<table class="table table-hover">
 		<tr>
-			<th width="10%">상품번호</th>
-			<th width="30%">이미지</th>
-			<th width="30%">상품명</th>
-			<th width="15%">가격</th>
-			<th width="15%">상품등록일</th>
+			<th width="25%">상품번호</th>
+			<th width="25%">이미지</th>
+			<th width="25%">상품명</th>
+			<th width="25%">가격</th>
 		</tr>
 		<c:if test="${empty list}">
 			<tr>
@@ -32,12 +31,11 @@
 		<c:if test="${not empty list }">
 			<c:forEach var="product" items="${list }">
 				<tr>
-<%-- <td><a href="productview.do?p_num=${product.p_num }">${product.p_name }</a></td>	 --%>
 					<td>${product.p_num }</td>
-					<td>${product.p_img }</td>
-					<td>${product.p_name }</td>
+					<td><img alt="${product.p_img }" src="../fileSave/${product.p_img } "></td>
+					<td><a href="productview.do?p_num=${product.p_num }">${product.p_name }</a></td>
 					<td>${product.p_cost }</td>
-					<td>${product.p_date }</td>
+<%-- 					<td>${product.p_date }</td> --%>
 				</tr>
 			</c:forEach>
 		</c:if>

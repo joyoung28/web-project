@@ -22,6 +22,7 @@ public class ProductListView implements CommandProcess {
 		List<Product> list = pd.selectList();
 		
 		request.setAttribute("list", list);
+
 		return "productlistview";
 	}
 }

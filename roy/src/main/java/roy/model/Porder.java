@@ -4,6 +4,8 @@ public class Porder {
 	private Integer o_num ;   
     private Date o_date;
     private String o_req;
+    private Integer o_qty;
+    private Integer o_cost;
     //fk
     private Integer p_num; //상품번호
     private String m_id;   //아이디
@@ -36,6 +38,18 @@ public class Porder {
 	}
 	public void setM_id(String m_id) {
 		this.m_id = m_id;
+	}
+	public Integer getO_qty() {
+		return o_qty;
+	}
+	public void setO_qty(Integer o_qty) {
+		this.o_qty = o_qty;
+	}
+	public Integer getO_cost() {
+		return o_cost;
+	}
+	public void setO_cost(Integer o_cost) {
+		this.o_cost = o_cost;
 	}
     
     

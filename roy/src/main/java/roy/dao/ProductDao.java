@@ -20,6 +20,7 @@ public class ProductDao {
 		return instance;
 	}
 	
+	
 	//Session 생성 DB 연결
 	private static SqlSession session;
 	static {
@@ -38,29 +39,15 @@ public class ProductDao {
 		//session.commit();		
 		return result;
 	}
-
+	
+	
 	public List<Product> selectList() {
         List<Product> list = session.selectList("productns.selectList");
         System.out.println("list :" + list);
         return list;
     }
 
-	
-
-	/*
-	 * public int selectMax() { int p_num2 = 0;
-	 * 
-	 * p_num2 = (int) session.selectOne("productns.selectMax");
-	 * 
-	 * return p_num2; }
-	 */
-	/*
-	 * public int updateImgName(int p_num, String p_img) { int result = 0;
-	 * HashMap<String, Object> hm = new HashMap<>(); hm.put("p_num", p_num);
-	 * hm.put("p_img", p_img);
-	 * 
-	 * result = session.update("productns.updateImgName", hm); return result; }
-	 */
-	
-	
+	public Product getDetail(int p_num) {
+		return (Product) session.selectOne("productns.getDetail", p_num);
+	}
 }

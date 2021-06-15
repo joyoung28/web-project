@@ -1,8 +1,8 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+	pageEncoding="UTF-8" import="java.util.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,26 +10,8 @@
 <title>Insert title here</title>
 <script type="text/javascript">
 	
-	function bidding() {
-		
-		//alert("p_end_date = ${pInfo.p_end_date}, date = ${date}");
-		
-		if ("${pInfo.p_end_date }" < "${date}") {
-			alert("경매가 종료된 상품입니다.");
-			return;
-		}
-		
-		frm.action = "../product/priceInput.do";
-		frm.submit();
-	}
-	
-	function history() {
-		frm.action = "../product/priceHistory.do";
-		frm.submit();
-	}
-	
-	function list_view() {
-		frm.action = "../product/myBidding.do";
+	function order() {
+		frm.action = "order.do";
 		frm.submit();
 	}
 	
@@ -38,34 +20,75 @@
 
 <body>
 
-	<h3>상품 상세설명 화면</h3>
+	<h3>포토북 인화 사진 선택</h3>
 	<form action="" name="frm">
-		<input type="hidden" name="id" value="${pInfo.id }">
-		<input type="hidden" name="gubun" value="${gubun}">
-		<input type="hidden" name="p_num" value="${pInfo.p_num }">
-		<input type="hidden" name="p_name" value="${pInfo.p_name }">
-		<input type="hidden" name="p_class_name1" value="${pInfo.p_class_name1 }">
-		<input type="hidden" name="p_class_name2" value="${pInfo.p_class_name2 }">
-		<input type="hidden" name="pageNum" value="${pageNum }">
-		<input type="hidden" name="p_image" value="${pInfo.p_image }">
+		<input type="hidden" name="p_num" value="${product.p_num }">
+		<input type="hidden" name="p_name" value="${product.p_name }">
+		<input type="hidden" name="p_cost" value="${product.p_cost}">
+		<input type="hidden" name="p_qty" value="${product.p_qty }">
+		<input type="hidden" name="p_size" value="${product.p_size }">
+		<input type="hidden" name="p_cov" value="${product.p_cov }">
+		<input type="hidden" name="p_date" value="${product.p_date }">
+		<input type="hidden" name="p_img" value="${product.p_img }">
 		<table>
 			<tr>
-				<td align="center"><img alt="${pInfo.p_name }" src="../../fileSave/${pInfo.p_image }"></td>
+				<td align="center"><img alt="${product.p_img }"
+					src="../fileSave/${product.p_img}"></td>
 				<td>
-					<tr>상품 번호 : ${pInfo.p_name }</tr>
-						<li>대분류 : ${pInfo.p_class_name1 }</li>
-						<li>소분류 : ${pInfo.p_class_name2 }</li>
-						<li>사용여부 : ${pInfo.p_used }</li>
-						<li>경매시작일 : ${pInfo.p_start_date }</li>
-						<li>경매종료일 : ${pInfo.p_end_date }</li>
-						<li>경매결과 : ${pInfo.p_auct_desc }</li>
-						<li>가격 : ${pInfo.p_price }원</li>
-					</tr>
-					<input type="submit" onclick="bidding()"   value="Bidding참여">&nbsp;
-					<input type="submit" onclick="history()"   value="가격 History">&nbsp;
-					<input type="submit" onclick="list_view()" value="목록보기">
-					<!-- <input type="submit" onclick="history.go(-1)" value="돌아가기"> -->
-				</td>
+			<tr>
+				<td>상품번호</td>
+				<td>${product.p_num }</td>
+			</tr>
+
+			<tr>
+				<td>상품명</td>
+				<td>${product.p_name }</td>
+			</tr>
+
+			<tr>
+				<td>커버</td>
+				<td>${product.p_cov }</td>
+			</tr>
+
+			<tr>
+				<td>사이즈</td>
+				<td>${product.p_size }</td>
+			</tr>
+			<tr>
+				<td>수량</td>
+				<td>
+				<input type="number" size="2" min="1" name="o_qty" required="required" value="1" ></td>
+			</tr>
+			<tr>
+				<td colspan="1"><th>인화글 선택</th></td>
+			</tr>
+			<tr>
+				<th width="5%">번호</th>
+				<th width="25%">제 목</th>
+				<th width="60%" >내용</th>
+				<th width="10%" >작성일</th>
+			</tr>
+			
+			<c:forEach var="blist" items="${blist }">
+				<tr>
+					<td>
+					<input type="checkbox" name="oboard" id="oboard" value="${blist.b_num }">
+						${blist.b_num }
+					</td>
+					<%-- <td><img alt="${product.p_img }" src="../fileSave/${product.p_img } "></td> --%>
+					<td>${blist.b_name }</td>
+					<td>${blist.b_cnt  }</td>
+					<td>${blist.b_date  }</td>
+				</tr>
+			</c:forEach>
+			
+			<tr>
+				<td>주문시 요청사항</td>
+				<td>	<input type="text" name="o_req"></td></td>
+			</tr>
+			<tr>
+				<td colspan="4"><input type="submit" onclick="order()"
+					value="구매"></td>
 			</tr>
 		</table>
 	</form>
